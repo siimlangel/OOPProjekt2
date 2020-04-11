@@ -1,0 +1,16 @@
+
+#paneLogin {
+    -fx-background-color: rgba(255, 255, 255);
+}
+
+
+#btnLogin {
+    -fx-background-color: rgba(86, 168, 255);
+    -fx-effect: dropshadow(three-pass-box, rgba(86, 168, 255, 0.8), 10, 0, 0, 0);
+}
+
+#btnLogin:hover {
+    -fx-background-color: rgba(86,168, 200);
+}
+
+
