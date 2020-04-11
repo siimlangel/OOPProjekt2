@@ -38,10 +38,13 @@ public class MainController {
 
     public void Login(ActionEvent actionEvent) throws Exception{
         // Kui sisselogimise andmed on õiged
+        // Siia saaks eelmisest projektist sisselogimise ümber teha boolean methodina.
+        // username tuleb txtKasutajaNimi.getText()-ist
+        // parool tuleb txtParool.getText()-ist-
         if (txtKasutajaNimi.getText().equals("user") &&
             txtParool.getText().equals("parool")) {
-            lblStaatus.setText("Sisse logimine õnnestus!");
 
+            lblStaatus.setText("Sisse logimine õnnestus!");
             // Sulgeb sisslogimise akna.
             ((Node) actionEvent.getSource()).getScene().getWindow().hide();
 
