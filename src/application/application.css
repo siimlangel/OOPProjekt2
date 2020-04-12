@@ -1,16 +1,27 @@
 
+* {
+    -standard-shadow: rgba(160, 160, 160, 0.8);
+}
+
 #paneLogin {
     -fx-background-color: rgba(255, 255, 255);
 }
 
 
-#btnLogin {
+.btnAccept {
     -fx-background-color: rgba(86, 168, 255);
-    -fx-effect: dropshadow(three-pass-box, rgba(86, 168, 255, 0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, -standard-shadow, 10, 0, 0, 0);
 }
 
-#btnLogin:hover {
+.btnAccept:hover {
     -fx-background-color: rgba(86,168, 200);
 }
 
+.btnBack {
+    -fx-background-color: rgba(250, 175, 15);
+    -fx-effect: dropshadow(three-pass-box, -standard-shadow, 10, 0, 0, 0);
+}
 
+.btnBack:hover {
+    -fx-background-color: rgba(224, 150, 0);
+}

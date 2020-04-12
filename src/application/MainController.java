@@ -36,6 +36,11 @@ public class MainController {
     private Button btnLogin;
 
 
+    /**
+     * Logib sisse. Kui õnnestub vahetab Main.fxml aknasse.
+     * @param actionEvent event kui nuppu vajutati mille küljes see meetod on
+     * @throws Exception
+     */
     public void Login(ActionEvent actionEvent) throws Exception{
         // Kui sisselogimise andmed on õiged
         // Siia saaks eelmisest projektist sisselogimise ümber teha boolean methodina.
@@ -50,19 +55,23 @@ public class MainController {
 
 
             // Teeb uue stage
-            Stage primaryStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
-            primaryStage.setTitle("Hello World");
-            Scene scene = new Scene(root, 600, 400);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            createStage("Main.fxml");
 
 
         } else {
             lblStaatus.setText("Sisse logimine ebaõnnestus!");
             buttonColorChange(btnLogin, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
         }
+    }
+
+    /**
+     * Sulgeb eelmise akna ja läheb ülekande stage
+     * @param actionEvent event kui nuppu vajutati
+     * @throws Exception
+     */
+    public void toUlekanne(ActionEvent actionEvent) throws Exception {
+        ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+        createStage("Ulekanne.fxml");
     }
 
     /**
@@ -87,6 +96,31 @@ public class MainController {
             }
         });
         ftr.play();
+    }
+
+    /**
+     * Teeb uue stage
+     * @param fileFXML mis stage tekitada
+     * @throws Exception
+     */
+    public void createStage(String fileFXML) throws Exception{
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource(String.format("/application/%s", fileFXML)));
+        primaryStage.setTitle("Hello World");
+        Scene scene = new Scene(root, 600, 400);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    /**
+     * Liigub Main.fxml aknasse
+     * @param actionEvent event kui vajutati nuppu mille küljes see meetod on
+     * @throws Exception
+     */
+    public void toMain(ActionEvent actionEvent) throws Exception {
+        ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+        createStage("Main.fxml");
     }
 
 
