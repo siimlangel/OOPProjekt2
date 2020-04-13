@@ -19,9 +19,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.sql.Time;
 
 public class MainController {
+
+    AndmebaasiUhendaja andmebaas = new AndmebaasiUhendaja();
 
     @FXML
     private Label lblStaatus;
@@ -35,7 +36,6 @@ public class MainController {
     @FXML
     private Button btnLogin;
 
-
     /**
      * Logib sisse. Kui õnnestub vahetab Main.fxml aknasse.
      * @param actionEvent event kui nuppu vajutati mille küljes see meetod on
@@ -46,8 +46,20 @@ public class MainController {
         // Siia saaks eelmisest projektist sisselogimise ümber teha boolean methodina.
         // username tuleb txtKasutajaNimi.getText()-ist
         // parool tuleb txtParool.getText()-ist-
-        if (txtKasutajaNimi.getText().equals("user") &&
-            txtParool.getText().equals("parool")) {
+        boolean kasutajaNimiÕige = false;
+        boolean paroolÕige = false;
+
+        if (andmebaas.testLogimine("SELECT * FROM kontod WHERE kasutajanimi = '"
+        + txtKasutajaNimi.getText() + "'", txtKasutajaNimi.getText(), "kasutajanimi")) {
+            kasutajaNimiÕige = true;
+        }
+        if (andmebaas.testLogimine("SELECT * FROM kontod WHERE kasutajanimi = '"
+                + txtKasutajaNimi.getText() + "'", txtParool.getText(), "parool")) {
+            kasutajaNimiÕige = true;
+        }
+
+
+        if (kasutajaNimiÕige && paroolÕige) {
 
             lblStaatus.setText("Sisse logimine õnnestus!");
             // Sulgeb sisslogimise akna.
@@ -64,15 +76,12 @@ public class MainController {
         }
     }
 
-    /**
-     * Sulgeb eelmise akna ja läheb ülekande stage
-     * @param actionEvent event kui nuppu vajutati
-     * @throws Exception
-     */
-    public void toUlekanne(ActionEvent actionEvent) throws Exception {
-        ((Node) actionEvent.getSource()).getScene().getWindow().hide();
-        createStage("Ulekanne.fxml");
+    public void LogOut(ActionEvent actionEvent) throws Exception {
+        ((Node)actionEvent.getSource()).getScene().getWindow().hide();
+        createStage("Login.fxml");
     }
+
+
 
     /**
      * Muudab nupu värvi
@@ -111,16 +120,6 @@ public class MainController {
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    /**
-     * Liigub Main.fxml aknasse
-     * @param actionEvent event kui vajutati nuppu mille küljes see meetod on
-     * @throws Exception
-     */
-    public void toMain(ActionEvent actionEvent) throws Exception {
-        ((Node) actionEvent.getSource()).getScene().getWindow().hide();
-        createStage("Main.fxml");
     }
 
 

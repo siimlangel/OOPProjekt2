@@ -3,11 +3,6 @@
     -standard-shadow: rgba(160, 160, 160, 0.8);
 }
 
-#paneLogin {
-    -fx-background-color: rgba(255, 255, 255);
-}
-
-
 .btnAccept {
     -fx-background-color: rgba(86, 168, 255);
     -fx-effect: dropshadow(three-pass-box, -standard-shadow, 10, 0, 0, 0);
