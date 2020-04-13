@@ -18,46 +18,46 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Text layoutX="243.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kasutajanimi">
+                        <Text fx:id="txtMainKasutajaNimi" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="profiilKasutajanimi" text="Kasutajanimi" textAlignment="CENTER" wrappingWidth="600.0">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="59.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Konto number">
+                        <Text layoutX="59.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Konto number">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="14.0" />
                            </font>
                         </Text>
-                        <Text layoutX="59.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Konto jääk">
+                        <Text layoutX="59.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Konto jääk">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="14.0" />
                            </font>
                         </Text>
-                        <Text layoutX="61.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="misiganes">
+                        <Text layoutX="61.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="misiganes">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="14.0" />
                            </font>
                         </Text>
-                        <Line endX="51.0" layoutX="300.0" layoutY="43.0" startX="-49.0" stroke="#56a8ff" strokeWidth="4.0" />
-                        <Line endX="44.0" layoutX="107.0" layoutY="106.0" startX="-44.0" stroke="#4388c9" strokeWidth="2.0" />
-                        <Line endX="44.0" layoutX="107.0" layoutY="153.0" startX="-44.0" stroke="#4388c9" strokeWidth="2.0" />
-                        <Line endX="44.0" layoutX="107.0" layoutY="206.0" startX="-44.0" stroke="#4388c9" strokeWidth="2.0" />
-                        <Label layoutX="253.0" layoutY="86.0" prefWidth="200.0" styleClass="lblProfiil" text="EE123456789">
+                        <Line endX="44.0" layoutX="107.0" layoutY="128.0" startX="-44.0" stroke="#4388c9" strokeWidth="2.0" />
+                        <Line endX="44.0" layoutX="107.0" layoutY="175.0" startX="-44.0" stroke="#4388c9" strokeWidth="2.0" />
+                        <Line endX="44.0" layoutX="107.0" layoutY="228.0" startX="-44.0" stroke="#4388c9" strokeWidth="2.0" />
+                        <Label fx:id="lblKontoNumber" layoutX="253.0" layoutY="108.0" prefWidth="200.0" styleClass="lblProfiil" text="EE123456789">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="253.0" layoutY="133.0" prefWidth="200.0" styleClass="lblProfiil" text="103.34">
+                        <Label fx:id="lblKontoJääk" layoutX="253.0" layoutY="155.0" prefWidth="200.0" styleClass="lblProfiil" text="103.34">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="253.0" layoutY="182.0" prefWidth="200.0" styleClass="lblProfiil" text="asdfasdf">
+                        <Label layoutX="253.0" layoutY="204.0" prefWidth="200.0" styleClass="lblProfiil" text="asdfasdf">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutX="453.0" layoutY="278.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="50.0" prefWidth="104.0" styleClass="btnBack" text="Logi välja" textFill="WHITE" />
+                        <Button layoutX="453.0" layoutY="279.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="50.0" prefWidth="104.0" styleClass="btnBack" text="Logi välja" textFill="WHITE" />
+                        <Line endX="300.0" layoutX="300.0" layoutY="47.0" startX="-300.0" stroke="#56a8ff" strokeWidth="2.0" />
                      </children>
                   </AnchorPane>
             </content>

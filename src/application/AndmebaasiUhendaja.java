@@ -28,8 +28,8 @@ public class AndmebaasiUhendaja {
 
     // Programm loob sisselogimisprotsessis saadud andmete põhjal uue isendi klassis Kasutaja, millele loeb
     // vastavatesse sõnedesse andmebaasist vastavad väärtused, st parool, kontonumnber jne.
-    /*
-    public Kasutaja looKlient(String kasutajanimi) throws SQLException {
+
+    public Kasutaja looKasutaja(String kasutajanimi) throws SQLException {
         String parool = "";
         String kontoNr = "";
         double kontojääk = 0;
@@ -49,7 +49,7 @@ public class AndmebaasiUhendaja {
         }
         return sisseLogitu;
     }
-    */
+
 
 
     // Loeb andmebaasist käskluse peale informatsiooni.
@@ -106,14 +106,14 @@ public class AndmebaasiUhendaja {
 
     // Kui kasutaja lõpetab seansi siis uuendab kõik kasutaja andmed andmebaasis.
 
-    /*
+
     public void uuendaAndmed(Kasutaja kasutaja) throws SQLException {
        String query = String.format("UPDATE kontod SET kasutajanimi = '%s', parool = '%s', kontonumber = '%s'" +
                ", kontojääk = %s WHERE kasutajanimi = '%s'", kasutaja.getKasutajanimi(), kasutaja.getParool(), kasutaja.getKontoNr(),
                kasutaja.getKontojääk(), kasutaja.getKasutajanimi());
         sisestaBaasi(query);
     }
-    */
+
 
 
 }
