@@ -14,7 +14,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
     // Teeb sisselogimise stage
     @Override
     public void start(Stage primaryStage) throws Exception {
