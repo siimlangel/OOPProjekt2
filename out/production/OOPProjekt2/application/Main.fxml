@@ -3,141 +3,108 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="raamistik" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<AnchorPane fx:id="raamistik" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
-      <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Profiil">
-            <content>
-              <AnchorPane fx:id="stepOut" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+      <BorderPane layoutX="11.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="lblKontoNumber" alignment="BOTTOM_LEFT" contentDisplay="CENTER" styleClass="lblProfiil" text="EE123456789" GridPane.columnIndex="2" GridPane.hgrow="SOMETIMES">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblKontoJääk" alignment="BOTTOM_LEFT" styleClass="lblProfiil" text="103.34" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblMuutuja" styleClass="lblProfiil" text="adafgea" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblNumbriTekst" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="742.0" styleClass="lblProfiil" text="Kontonumber" GridPane.hgrow="SOMETIMES">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblJäägiTekst" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="535.0" styleClass="lblProfiil" text="Kontojääk" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblMuutujaTekst" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="480.0" styleClass="lblProfiil" text="Misiganes" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+         </center>
+         <top>
+            <HBox alignment="CENTER" minHeight="150.0" minWidth="600.0" prefHeight="85.0" prefWidth="803.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="705.0" spacing="5.0">
                      <children>
-                        <Line fx:id="pikkJoon" endX="1200.0" endY="-7.62939453125E-6" layoutY="47.0" stroke="#56a8ff" strokeWidth="2.0" AnchorPane.bottomAnchor="521.1857864618302" AnchorPane.leftAnchor="-1.4142135381698608" AnchorPane.rightAnchor="-401.41415560245514" AnchorPane.topAnchor="45.58577883243561" />
-                        <BorderPane fx:id="ümbrispaan" layoutY="-1.0" prefHeight="575.0" prefWidth="806.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <top>
-                              <Text fx:id="txtMainKasutajaNimi" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="profiilKasutajanimi" text="Kasutajanimi" textAlignment="CENTER" wrappingWidth="800.0" BorderPane.alignment="BOTTOM_CENTER">
-                                 <font>
-                                    <Font name="Arial Rounded MT Bold" size="18.0" />
-                                 </font>
-                                 <BorderPane.margin>
-                                    <Insets top="15.0" />
-                                 </BorderPane.margin>
-                              </Text>
-                           </top>
-                           <bottom>
-                              <Button fx:id="logiväljaNupp" mnemonicParsing="false" onAction="#LogOut" prefHeight="50.0" prefWidth="104.0" styleClass="btnBack" text="Logi välja" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
-                                 <BorderPane.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </BorderPane.margin>
-                              </Button>
-                           </bottom>
-                           <center>
-                              <AnchorPane fx:id="ankur" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <GridPane fx:id="andmed" alignment="CENTER" gridLinesVisible="true" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.4" minWidth="10.0" prefWidth="261.59998779296876" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.20000000000005" minWidth="10.0" prefWidth="260.00001220703126" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label fx:id="lblKontoNumber" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="22.0" prefWidth="337.0" styleClass="lblProfiil" text="EE123456789" GridPane.columnIndex="1">
-                                             <font>
-                                                <Font name="Arial Rounded MT Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblKontoJääk" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="319.0" styleClass="lblProfiil" text="103.34" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <font>
-                                                <Font name="Arial Rounded MT Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblMuutuja" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="311.0" styleClass="lblProfiil" text="adafgea" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                             <font>
-                                                <Font name="Arial Rounded MT Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblNumbriTekst" prefHeight="22.0" prefWidth="337.0" styleClass="lblProfiil" text="Kontonumber">
-                                             <font>
-                                                <Font name="Arial Rounded MT Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblJäägiTekst" prefHeight="22.0" prefWidth="311.0" styleClass="lblProfiil" text="Kontojääk" GridPane.rowIndex="1">
-                                             <font>
-                                                <Font name="Arial Rounded MT Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblMuutujaTekst" prefHeight="22.0" prefWidth="311.0" styleClass="lblProfiil" text="Misiganes" GridPane.rowIndex="2">
-                                             <font>
-                                                <Font name="Arial Rounded MT Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </center>
-                        </BorderPane>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Ülekanne">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Text layoutX="259.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ülekanne">
+                        <Text fx:id="txtMainKasutajaNimi" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="profiilKasutajanimi" text="Kasutajanimi" textAlignment="CENTER" wrappingWidth="800.0">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Text>
-                        <Line endX="27.0" layoutX="312.0" layoutY="42.0" startX="-47.0" stroke="#56a8ff" strokeWidth="4.0" />
-                        <Text layoutX="49.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Konto number">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="47.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Summa">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <TextField layoutX="226.0" layoutY="94.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField layoutX="226.0" layoutY="178.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Line endX="54.0" layoutX="107.0" layoutY="133.0" startX="-55.0" stroke="#4388c9" strokeWidth="2.0" />
-                        <Line endX="60.0" layoutX="100.0" layoutY="217.0" startX="-51.0" stroke="#4388c9" strokeWidth="2.0" />
-                        <Button layoutX="280.0" layoutY="281.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="116.0" styleClass="btnAccept" text="Kinnitan" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
+                        <Line fx:id="pikkJoon" endY="-7.62939453125E-6" startX="-600.0" stroke="#56a8ff" strokeWidth="2.0" />
+                        <HBox alignment="CENTER" prefHeight="29.0" prefWidth="803.0" spacing="15.0">
+                           <children>
+                              <Button fx:id="sättedNupp" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="104.0" styleClass="btnBack" stylesheets="@application.css" text="Sätted" textFill="WHITE" />
+                              <Button fx:id="ülekandeNupp" alignment="CENTER" mnemonicParsing="false" onAction="#ulekandeNupp" prefHeight="50.0" prefWidth="104.0" styleClass="btnBack" stylesheets="@application.css" text="Ülekanne" textFill="WHITE" />
+                              <Button fx:id="infoNupp" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="104.0" styleClass="btnBack" stylesheets="@application.css" text="Informatsioon" textFill="WHITE" />
+                           </children>
+                        </HBox>
                      </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="80.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </top>
+         <left>
+            <Label text="mõnedsendidäärest" visible="false" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Label text="mõnedsendidäärest" visible="false" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Button fx:id="logiväljaNupp" mnemonicParsing="false" onAction="#LogOut" prefHeight="50.0" prefWidth="104.0" styleClass="btnBack" stylesheets="@application.css" text="Logi välja" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="80.0" />
+               </BorderPane.margin>
+            </Button>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

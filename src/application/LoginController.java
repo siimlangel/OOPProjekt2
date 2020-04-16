@@ -78,6 +78,8 @@ public class LoginController {
             Stage primaryStage = new Stage();
             primaryStage.setScene(scene);
             primaryStage.show();
+            primaryStage.setMinWidth(600);
+            primaryStage.setMinHeight(400);
 
         } else {
             lblStaatus.setText("Sisselogimine ebaõnnestus!");
