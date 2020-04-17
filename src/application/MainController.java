@@ -118,18 +118,6 @@ public class MainController implements Initializable {
         primaryStage.setMinHeight(300);
     }
 
-    @FXML
-    private void ulekandeNupp(ActionEvent event)throws Exception {
-
-        Parent view2 = FXMLLoader.load(getClass().getResource(String.format("/application/%s", "Ülekanne.fxml")));
-
-        Scene scene2 = new Scene(view2, raamistik.getWidth(), raamistik.getHeight());
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene2);
-        window.show();
-
-    }
 }
 
 
