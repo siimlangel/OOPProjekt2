@@ -160,12 +160,12 @@
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="169.0" prefWidth="226.0" spacing="10.0">
                                        <children>
-                                          <TextField fx:id="txtKontonumber" promptText="Kasutajanimi" text="Kontonumber">
+                                          <TextField fx:id="txtKontonumber" promptText="Kasutajanimi">
                                              <font>
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="txtSumma" promptText="Kasutajanimi" text="Summa">
+                                          <TextField fx:id="txtSumma" promptText="Summa">
                                              <font>
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>
