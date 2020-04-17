@@ -164,7 +164,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="169.0" prefWidth="226.0" spacing="10.0">
                                        <children>
-                                          <TextField fx:id="txtÜlekanneKontonumber" promptText="EE12345678910">
+                                          <TextField fx:id="txtÜlekanneKontonumber" prefWidth="229.0" promptText="EE12345678910">
                                              <font>
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>
