@@ -159,46 +159,39 @@ public class Loogika {
     }
 
     // Teisele kontole ülekande tegemine.
-    private static void ülekanne(Kasutaja kasutaja) {
-        String kontoNr;
-        double summa;
-        do {
-            System.out.print("Sisestage millisele kontonumbrile ülekanne teha -> ");
-            kontoNr = scanner.next();
+    public static String ülekanne(Kasutaja kasutaja, String kontoNr, double summa) {
 
-            if (kontoNr.equals(kasutaja.getKontoNr())) {
-                System.out.println("Iseenda kontole ei ole võimalik ülekannet teha.");
-            }
-        } while (kontoNr.equals(kasutaja.getKontoNr())); // Küsi uuesti kui on antud iseenda kontonumber.
+        if (kontoNr.equals(kasutaja.getKontoNr())) {
+                return "Iseenda kontole ei ole võimalik ülekannet teha.";
 
-        do {
-            System.out.print("Sisestage summa -> ");
-            summa = scanner.nextDouble();
-            if (summa > kasutaja.getKontojääk()) {
-                System.out.println("Teie kontol puuduvad piisavad vahendid.");
-            }
+        }
 
-        } while (summa > kasutaja.getKontojääk()); // Küsi uuesti kui summa on suurem kui kliendil raha on.
+        if (summa > kasutaja.getKontojääk()) {
+            return "Teie kontol puuduvad piisavad vahendid.";
+        }
 
         // SQL käsklus, mis uuendab saajakonto rahalist seisu andmebaasis.
-        String query = String.format("UPDATE kontod SET kontojääk = kontojääk + %s WHERE " +
+        String saajaQuery = String.format("UPDATE kontod SET kontojääk = kontojääk + %s WHERE " +
                 "kontonumber = '%s'", summa, kontoNr);
+        // SQL käsklus, mis uuendab kandjakonto rahalist seisu andmebaasis.
+        String kandjaQuery = String.format("UPDATE kontod SET kontojääk = kontojääk - %s WHERE " +
+                "kontonumber = '%s'", summa, kasutaja.getKontoNr());
 
         // Proovitakse käsklust andmebaasi sisestada, kui kõik läheb plaanipäraselt, siis andmebaasis muutub
         // saaja konto rahaline seisund ning kasutajalt lahutatakse vastav summa maha.
         try {
             String query2 = String.format("SELECT * from kontod WHERE kontonumber = '%s'", kontoNr);
-            if (andmebaas.testLogimine(query2, kontoNr, "kontonumber") == true) {
-                andmebaas.sisestaBaasi(query);
-                kasutaja.setKontojääk(kasutaja.getKontojääk() - summa);
-                System.out.println("Ülekanne õnnestus!");
+            if (andmebaas.testLogimine(query2, kontoNr, "kontonumber")) {
+                andmebaas.sisestaBaasi(saajaQuery);
+                andmebaas.sisestaBaasi(kandjaQuery);
+                return "Ülekanne õnnestus!";
             } else {
-                System.out.println("Sobimatu pangakonto number...Ülekanne ebaõnnestus...");
+                return "Sobimatu pangakonto number...Ülekanne ebaõnnestus...";
             } // Sellega kontrollib, kas kontonumber on olemas, erind kui ei ole.
 
 
         } catch (SQLException e) {
-            System.out.println("Ülekanne ebaõnnestus...");
+            return "Ülekanne ebaõnnestus...";
         }
     }
 

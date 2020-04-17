@@ -17,10 +17,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <TabPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <tabs>
-      <Tab fx:id="Konto" text="Konto">
+      <Tab fx:id="Konto" closable="false" text="Konto">
          <content>
             <AnchorPane fx:id="raamistik" prefHeight="400.0" prefWidth="600.0">
                <children>
@@ -111,7 +110,7 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="Ülekanne" text="Ülekanne">
+      <Tab fx:id="Ülekanne" closable="false" text="Ülekanne">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -144,33 +143,38 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="574.0" prefWidth="226.0">
                                  <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ülekanne">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="24.0" />
+                                       </font>
+                                    </Text>
+                                    <Line fx:id="lblStaatusUnderline" endX="78.37159729003906" endY="-5.149364587850869E-4" startX="-78.0" stroke="#56a8ff" strokeWidth="4.0">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Line>
                                     <VBox alignment="CENTER" prefHeight="63.0" prefWidth="162.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ülekanne">
+                                          <Text fx:id="txtÜlekanneError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="229.0">
                                              <font>
-                                                <Font name="Arial Rounded MT Bold" size="24.0" />
+                                                <Font name="Arial" size="14.0" />
                                              </font>
                                           </Text>
-                                          <Line fx:id="lblStaatusUnderline" endX="78.37159729003906" endY="-5.149364587850869E-4" startX="-78.0" stroke="#56a8ff" strokeWidth="4.0">
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Line>
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="169.0" prefWidth="226.0" spacing="10.0">
                                        <children>
-                                          <TextField fx:id="txtKontonumber" promptText="Kasutajanimi" text="Kontonumber">
+                                          <TextField fx:id="txtÜlekanneKontonumber" prefWidth="229.0" promptText="EE12345678910">
                                              <font>
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="txtSumma" promptText="Kasutajanimi" text="Summa">
+                                          <TextField fx:id="txtSumma" promptText="12345">
                                              <font>
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <Button fx:id="btnKinnita" mnemonicParsing="false" prefHeight="52.0" prefWidth="224.0" styleClass="btnAccept" stylesheets="@application.css" text="Kinnita" textFill="WHITE">
+                                          <Button fx:id="btnKinnita" mnemonicParsing="false" onAction="#Ülekanne" prefHeight="52.0" prefWidth="224.0" styleClass="btnAccept" stylesheets="@application.css" text="Kinnita" textFill="WHITE">
                                              <font>
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>

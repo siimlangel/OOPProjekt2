@@ -11,16 +11,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -59,6 +56,15 @@ public class MainController implements Initializable {
     @FXML
     private Line pikkJoon;
 
+    @FXML
+    private TextField txtÜlekanneKontonumber;
+
+    @FXML
+    private TextField txtSumma;
+
+    @FXML
+    private Text txtÜlekanneError;
+
     // Et saaks LoginControlleris seda controllerit initalizeda ja sealt kasutaja andmeid saata.
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,6 +100,15 @@ public class MainController implements Initializable {
         });
 
 
+    }
+
+    public void Ülekanne(ActionEvent actionEvent) {
+        String kontoNumber = txtÜlekanneKontonumber.getText();
+        double summa = Double.parseDouble(txtSumma.getText());
+        System.out.println(kontoNumber);
+        System.out.println(summa);
+        String ülekandeTulemus = Loogika.ülekanne(kasutaja, kontoNumber, summa);
+        txtÜlekanneError.setText(ülekandeTulemus);
     }
 
     // Teeb kasutaja LoginControllerist saadetud andmetega.
