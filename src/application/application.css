@@ -13,10 +13,10 @@
 }
 
 .btnBack {
-    -fx-background-color: rgba(250, 175, 15);
+    -fx-background-color: rgba(86, 168, 255);
     -fx-effect: dropshadow(three-pass-box, -standard-shadow, 10, 0, 0, 0);
 }
 
 .btnBack:hover {
-    -fx-background-color: rgba(224, 150, 0);
+    -fx-background-color: rgba(86,168, 200);
 }

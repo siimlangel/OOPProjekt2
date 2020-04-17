@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -42,7 +43,7 @@ public class LoginController {
      * @throws Exception
      */
     @FXML
-    public void Login(ActionEvent actionEvent) throws Exception{
+    public void Login(ActionEvent actionEvent) throws Exception {
 
         boolean kasutajaNimiÕige = false;
         boolean paroolÕige = false;
@@ -62,7 +63,7 @@ public class LoginController {
         // Kui sisselogimisandmed on õiged
         if (kasutajaNimiÕige && paroolÕige) {
 
-            lblStaatus.setText("Sisse logimine õnnestus!");
+            lblStaatus.setText("Sisselogimine õnnestus!");
             // Sulgeb sisslogimise akna.
             ((Node) actionEvent.getSource()).getScene().getWindow().hide();
 
@@ -72,14 +73,14 @@ public class LoginController {
             // Instantiateb järgmise controlleri ja annab talle kasutajanime et luua seal kasutaja.
             MainController mainController = loader.getController();
             mainController.looKasutaja(txtKasutajaNimi.getText());
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, 800, 600);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             Stage primaryStage = new Stage();
             primaryStage.setScene(scene);
             primaryStage.show();
 
         } else {
-            lblStaatus.setText("Sisse logimine ebaõnnestus!");
+            lblStaatus.setText("Sisselogimine ebaõnnestus!");
             buttonColorChange(btnLogin, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
         }
     }
