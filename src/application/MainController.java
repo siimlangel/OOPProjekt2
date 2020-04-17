@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -58,11 +59,6 @@ public class MainController implements Initializable {
     @FXML
     private Line pikkJoon;
 
-    @FXML
-    private GridPane andmed;
-
-
-
     // Et saaks LoginControlleris seda controllerit initalizeda ja sealt kasutaja andmeid saata.
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,21 +66,23 @@ public class MainController implements Initializable {
         raamistik.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
                 double raamiLaius = (double) uusLaius;
+
                 raamistik.setPrefWidth(raamiLaius);
 
                 // Nupu suurus muutub laiusega.
                 logiväljaNupp.setPrefWidth(raamiLaius*0.15);
 
-                // Tekstide suurused
-                lblKontoJääk.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.025));
-                lblJäägiTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.025));
-                lblJäägiTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.025));
-                lblMuutuja.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.025));
-                lblMuutujaTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.025));
-                lblKontoNumber.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.025));
-                lblNumbriTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.025));
+                // Tekstide suurused.
+                lblKontoJääk.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.02));
+                lblJäägiTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.02));
+                lblJäägiTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.02));
+                lblMuutuja.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.02));
+                lblMuutujaTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.02));
+                lblKontoNumber.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.02));
+                lblNumbriTekst.setFont(new Font("Arial Rounded MT BOLD", raamiLaius * 0.02));
 
                 // Muudab sinise joone pikkuse akna laiuseks.
+                pikkJoon.setStartX(0);
                 pikkJoon.setEndX(raamiLaius);
             }
         });
@@ -116,7 +114,22 @@ public class MainController implements Initializable {
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setMinWidth(400);
+        primaryStage.setMinHeight(300);
     }
 
+    @FXML
+    private void ulekandeNupp(ActionEvent event)throws Exception {
 
+        Parent view2 = FXMLLoader.load(getClass().getResource(String.format("/application/%s", "Ülekanne.fxml")));
+
+        Scene scene2 = new Scene(view2, raamistik.getWidth(), raamistik.getHeight());
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene2);
+        window.show();
+
+    }
 }
+
+
