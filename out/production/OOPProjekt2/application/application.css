@@ -20,3 +20,8 @@
 .btnBack:hover {
     -fx-background-color: rgba(86,168, 200);
 }
+
+.tab-header-background {
+    -fx-background-color: rgba(86, 168, 255);
+}
+

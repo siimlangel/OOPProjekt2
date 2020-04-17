@@ -162,12 +162,12 @@ public class Loogika {
     public static String ülekanne(Kasutaja kasutaja, String kontoNr, double summa) {
 
         if (kontoNr.equals(kasutaja.getKontoNr())) {
-                return "Iseenda kontole ei ole võimalik ülekannet teha.";
+                return "Saajakonto on Teie enda oma...";
 
         }
 
         if (summa > kasutaja.getKontojääk()) {
-            return "Teie kontol puuduvad piisavad vahendid.";
+            return "Vahendid puuduvad...";
         }
 
         // SQL käsklus, mis uuendab saajakonto rahalist seisu andmebaasis.
@@ -186,7 +186,7 @@ public class Loogika {
                 andmebaas.sisestaBaasi(kandjaQuery);
                 return "Ülekanne õnnestus!";
             } else {
-                return "Sobimatu pangakonto number...Ülekanne ebaõnnestus...";
+                return "Sobimatu pangakonto number...";
             } // Sellega kontrollib, kas kontonumber on olemas, erind kui ei ole.
 
 

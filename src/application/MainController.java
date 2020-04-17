@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
@@ -64,6 +65,7 @@ public class MainController implements Initializable {
 
     @FXML
     private Text txtÜlekanneError;
+
 
     // Et saaks LoginControlleris seda controllerit initalizeda ja sealt kasutaja andmeid saata.
     @Override

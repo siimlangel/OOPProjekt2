@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<TabPane fx:id="riba" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <tabs>
       <Tab fx:id="Konto" closable="false" text="Konto">
          <content>
@@ -118,7 +118,7 @@
                      <center>
                         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
                            <children>
-                              <VBox alignment="CENTER_RIGHT" prefHeight="453.0" prefWidth="138.0" spacing="20.0">
+                              <VBox alignment="CENTER_RIGHT" prefHeight="453.0" prefWidth="138.0" spacing="22.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kontonumber" wrappingWidth="137.405029296875">
                                        <font>
@@ -135,10 +135,10 @@
                                     </Text>
                                  </children>
                                  <padding>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="15.0" />
                                  </padding>
                                  <HBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets bottom="25.0" />
                                  </HBox.margin>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="574.0" prefWidth="226.0">
@@ -153,16 +153,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </Line>
-                                    <VBox alignment="CENTER" prefHeight="63.0" prefWidth="162.0">
-                                       <children>
-                                          <Text fx:id="txtÜlekanneError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="229.0">
-                                             <font>
-                                                <Font name="Arial" size="14.0" />
-                                             </font>
-                                          </Text>
-                                       </children>
-                                    </VBox>
-                                    <VBox alignment="CENTER" prefHeight="169.0" prefWidth="226.0" spacing="10.0">
+                                    <VBox alignment="CENTER" prefHeight="169.0" prefWidth="230.0" spacing="10.0">
                                        <children>
                                           <TextField fx:id="txtÜlekanneKontonumber" prefWidth="229.0" promptText="EE12345678910">
                                              <font>
@@ -174,17 +165,20 @@
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <Button fx:id="btnKinnita" mnemonicParsing="false" onAction="#Ülekanne" prefHeight="52.0" prefWidth="224.0" styleClass="btnAccept" stylesheets="@application.css" text="Kinnita" textFill="WHITE">
+                                          <Button fx:id="btnKinnita" minHeight="40.0" mnemonicParsing="false" onAction="#Ülekanne" prefHeight="86.0" prefWidth="230.0" styleClass="btnAccept" stylesheets="@application.css" text="Kinnita" textFill="WHITE">
                                              <font>
                                                 <Font name="Arial Rounded MT Bold" size="18.0" />
                                              </font>
                                           </Button>
-                                          <Label fx:id="lblStaatus">
+                                          <Text fx:id="txtÜlekanneError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="229.0">
                                              <font>
-                                                <Font name="Arial Rounded MT Bold" size="15.0" />
+                                                <Font name="Arial" size="14.0" />
                                              </font>
-                                          </Label>
+                                          </Text>
                                        </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
                                     </VBox>
                                  </children>
                               </VBox>
