@@ -9,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -20,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -66,11 +64,43 @@ public class MainController implements Initializable {
     @FXML
     private Text txtÜlekanneError;
 
+    @FXML
+    private Tab tabLisaKasutaja;
+
+    @FXML
+    private TabPane tabpaneMain;
+
+    @FXML
+    private TextField txtKasutajanimiLisaKasutaja;
+
+    @FXML
+    private TextField txtParoolLisaKasutaja;
+
+    @FXML
+    private TextField txtKontonumberLisaKasutaja;
+
+    @FXML
+    private CheckBox chkboxOnAdminLisaKasutaja;
+
+    @FXML
+    private Button btnKinnitaLisaKasutaja;
+
+    @FXML
+    private Text txtErrorLisaKasutaja;
+
+    @FXML
+    private Tab tabEemaldaKasutaja;
+
+    @FXML
+    private TextField txtKasutajanimiEemaldaKasutaja;
+
+    @FXML
+    private Text txtErrorEemaldaKasutaja;
+
 
     // Et saaks LoginControlleris seda controllerit initalizeda ja sealt kasutaja andmeid saata.
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         raamistik.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
                 double raamiLaius = (double) uusLaius;
@@ -104,6 +134,33 @@ public class MainController implements Initializable {
 
     }
 
+    public void EemaldaKasutaja(ActionEvent actionEvent) {
+        String eemaldadaKasutajaNimi = txtKasutajanimiEemaldaKasutaja.getText();
+        String error = "";
+        try {
+            error = Loogika.eemaldaKasutaja(eemaldadaKasutajaNimi);
+        } catch (SQLException e) {
+            error = "Viga andmebaasist kasutaja eemaldamisel";
+        }
+        txtErrorEemaldaKasutaja.setText(error);
+    }
+
+    //Lisab Andmebaasi uue kasutaja.
+    public void LisaKasutaja(ActionEvent actionEvent) {
+        String kasutajaNimi = txtKasutajanimiLisaKasutaja.getText();
+        String parool = txtParoolLisaKasutaja.getText();
+        String kontoNumber = txtKontonumberLisaKasutaja.getText();
+        boolean onAdmin = chkboxOnAdminLisaKasutaja.isSelected();
+        double kontoJääk = 0.0;
+        String error = "";
+        try {
+            error = Loogika.lisaKasutaja(kasutajaNimi, parool, kontoNumber, kontoJääk, onAdmin);
+        } catch (SQLException e) {
+            error = "Viga andmebaasi kasutaja lisamisel";
+        }
+        txtErrorLisaKasutaja.setText(error);
+    }
+
     public void Ülekanne(ActionEvent actionEvent) {
         String kontoNumber = txtÜlekanneKontonumber.getText();
         double summa = Double.parseDouble(txtSumma.getText());
@@ -119,6 +176,12 @@ public class MainController implements Initializable {
         txtMainKasutajaNimi.setText(kasutajaNimi);
         lblKontoNumber.setText(kasutaja.getKontoNr());
         lblKontoJääk.setText(Double.toString(kasutaja.getKontojääk()));
+
+        // Näitab ainult administraatoritele kasutaja lisamise ja eemaldamise tabi.
+        if (kasutaja instanceof Klient) {
+            tabpaneMain.getTabs().remove(tabLisaKasutaja);
+            tabpaneMain.getTabs().remove(tabEemaldaKasutaja);
+        }
     }
 
     // Logib kasutajast välja, sulgeb akna ja avab sisselogimise akna.

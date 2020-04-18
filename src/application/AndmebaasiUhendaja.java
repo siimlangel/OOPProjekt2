@@ -91,6 +91,11 @@ public class AndmebaasiUhendaja {
         sisestaBaasi(query);
     }
 
+    public void eemaldaKasutaja(String kasutajaNimi) throws SQLException {
+        String query = String.format("DELETE FROM kontod WHERE kasutajanimi = '%s'", kasutajaNimi);
+        sisestaBaasi(query);
+    }
+
     // Loeb andmebaasist, mis on etteantud kasutaja parool.
     public String getParool(String kasutajanimi) throws SQLException {
         String parool = "";

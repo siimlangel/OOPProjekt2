@@ -83,33 +83,10 @@ public class LoginController {
 
         } else {
             lblStaatus.setText("Sisselogimine ebaõnnestus!");
-            buttonColorChange(btnLogin, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
+            Loogika.buttonColorChange(btnLogin, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
         }
     }
 
-    /**
-     * Muudab nupu värvi
-     * @param btn Nupp mille värvi muuta
-     * @param fromCol Mis värvist alustab
-     * @param toCol Mis värviks muutub
-     */
-    public void buttonColorChange(Button btn, Color fromCol, Color toCol) {
-        Rectangle rect = new Rectangle();
-        rect.setFill(fromCol);
-        FillTransition ftr = new FillTransition();
-        ftr.setShape(rect);
-        ftr.setDuration(Duration.millis(500));
-        ftr.setFromValue(fromCol);
-        ftr.setToValue(toCol);
-        ftr.setInterpolator(new Interpolator() {
-            @Override
-            protected double curve(double v) {
-                btn.setBackground(new Background(new BackgroundFill(rect.getFill(), CornerRadii.EMPTY, Insets.EMPTY)));
-                return v;
-            }
-        });
-        ftr.play();
-    }
 
 
 
