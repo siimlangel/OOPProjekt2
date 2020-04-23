@@ -20,6 +20,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import static application.Logija.logija;
+
 
 public class LoginController {
     AndmebaasiUhendaja andmebaas = new AndmebaasiUhendaja();
@@ -45,6 +47,9 @@ public class LoginController {
     @FXML
     public void Login(ActionEvent actionEvent) throws Exception {
 
+        // Panen logifaili tööle.
+        Logija.logijaProtsess();
+
         boolean kasutajaNimiÕige = false;
         boolean paroolÕige = false;
 
@@ -62,6 +67,8 @@ public class LoginController {
 
         // Kui sisselogimisandmed on õiged
         if (kasutajaNimiÕige && paroolÕige) {
+
+            logija.info("Kasutaja " + txtKasutajaNimi.getText() + " logis sisse!");
 
             lblStaatus.setText("Sisselogimine õnnestus!");
             // Sulgeb sisslogimise akna.

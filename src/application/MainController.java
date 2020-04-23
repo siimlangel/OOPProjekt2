@@ -16,9 +16,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static application.Logija.logija;
 
 
 public class MainController implements Initializable {
@@ -97,10 +100,26 @@ public class MainController implements Initializable {
     @FXML
     private Text txtErrorEemaldaKasutaja;
 
+    @FXML
+    private Button btnKinnitaEemaldaKasutaja;
+
+    @FXML
+    private Button btnKustutaLogi;
+
+    @FXML
+    private Button btnNäitaLogi;
+
+    @FXML
+    private Tab tabLogiandmed;
+
+    @FXML
+    private TextArea textAreaLogi;
+
 
     // Et saaks LoginControlleris seda controllerit initalizeda ja sealt kasutaja andmeid saata.
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         raamistik.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
                 double raamiLaius = (double) uusLaius;
@@ -124,6 +143,7 @@ public class MainController implements Initializable {
                 pikkJoon.setEndX(raamiLaius);
             }
         });
+
         raamistik.heightProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number vanaKõrgus, Number uusKõrgus) {
                 double kõrgus = (double) uusKõrgus;
@@ -131,7 +151,46 @@ public class MainController implements Initializable {
             }
         });
 
+        txtKasutajanimiEemaldaKasutaja.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
+                double laius = (double) uusLaius;
+                // Tekstiribaga sama lai nupp.
+                btnKinnitaEemaldaKasutaja.setPrefWidth(laius);
+            }
+        });
 
+        txtKasutajanimiLisaKasutaja.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
+                double laius = (double) uusLaius;
+                // Tekstiribaga sama lai nupp.
+                btnKinnitaLisaKasutaja.setPrefWidth(laius);
+            }
+        });
+    }
+
+    public void NäitaLogi(ActionEvent actionEvent) {
+        File fail = new File("logi.log");
+        try (BufferedReader lugeja = new BufferedReader(new InputStreamReader(new FileInputStream(fail)))) {
+            String rida;
+            while ((rida = lugeja.readLine()) != null) {
+                textAreaLogi.appendText(rida + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Viga logi lugemisel...");
+        }
+    }
+
+    public void KustutaLogi(ActionEvent actionEvent) {
+        // Kustutab logifaili ära ja loob uue ja alustab logimist.
+        try {
+            // Sisuliselt kirjutab faili üle.
+            PrintWriter kirjutaja = new PrintWriter("logi.log");
+            kirjutaja.close();
+        } catch (IOException e) {
+            System.out.println("Logi kustutamine ebaõnnestus!");
+        }
+
+        textAreaLogi.setText("");
     }
 
     public void EemaldaKasutaja(ActionEvent actionEvent) {
@@ -181,11 +240,13 @@ public class MainController implements Initializable {
         if (kasutaja instanceof Klient) {
             tabpaneMain.getTabs().remove(tabLisaKasutaja);
             tabpaneMain.getTabs().remove(tabEemaldaKasutaja);
+            tabpaneMain.getTabs().remove(tabLogiandmed);
         }
     }
 
     // Logib kasutajast välja, sulgeb akna ja avab sisselogimise akna.
     public void LogOut(ActionEvent actionEvent) throws Exception {
+        logija.info("Kasutaja " + kasutaja.getKasutajanimi() + " logis välja.");
         ((Node)actionEvent.getSource()).getScene().getWindow().hide();
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource(String.format("/application/%s", "Login.fxml")));

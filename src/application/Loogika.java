@@ -15,6 +15,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
@@ -23,11 +26,12 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
+import static application.Logija.logija;
+
 public class Loogika {
     // Programm ühendatakse andmebaasiga.
     public static AndmebaasiUhendaja andmebaas = new AndmebaasiUhendaja();
     static Scanner scanner = new Scanner(System.in);
-
 
     // Meetodiga genereeritakse kaks numbrit vahemikus 0-10, ja prinditakse liitmistehe ja tagastatakse
     // selle liitmistehte vastus sõnena, et mugavalt kontrollida seda kasutaja vastusega.
@@ -44,7 +48,8 @@ public class Loogika {
             return "Error: Sellise nimega kasutajat pole";
         } else {
             andmebaas.eemaldaKasutaja(kasutajanimi);
-            return "Kasutaja eduaklt eemaldatud";
+            logija.info("Kasutaja " + kasutajanimi + " eemaldati andmebaasist!");
+            return "Kasutaja edukalt eemaldatud!";
         }
     }
 
@@ -81,6 +86,7 @@ public class Loogika {
             return error;
         } else {
             andmebaas.lisaKasutaja(kasutajanimi, parool, kontonumber, kontojääk, onAdmin);
+            logija.info("Kasutaja " + kasutajanimi + " lisati andmebaasi!");
             return "Kasutaja lisamine õnnestus";
         }
     }
@@ -171,7 +177,6 @@ public class Loogika {
 
         if (kontoNr.equals(kasutaja.getKontoNr())) {
             return "Saajakonto on Teie enda oma...";
-
         }
 
         if (summa > kasutaja.getKontojääk()) {
@@ -192,6 +197,7 @@ public class Loogika {
             if (andmebaas.testLogimine(query2, kontoNr, "kontonumber")) {
                 andmebaas.sisestaBaasi(saajaQuery);
                 andmebaas.sisestaBaasi(kandjaQuery);
+                logija.info("Kontolt " + kasutaja.getKontoNr() + " tehti ülekanne kontole " + kontoNr + "! Summa: " + summa + ".");
                 return "Ülekanne õnnestus!";
             } else {
                 return "Sobimatu pangakonto number...";
