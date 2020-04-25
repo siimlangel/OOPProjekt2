@@ -21,10 +21,7 @@ import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
-import java.util.InputMismatchException;
-import java.util.Locale;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static application.Logija.logija;
 
@@ -49,7 +46,7 @@ public class Loogika {
         } else {
             andmebaas.eemaldaKasutaja(kasutajanimi);
             logija.info("Kasutaja " + kasutajanimi + " eemaldati andmebaasist!");
-            return "Kasutaja edukalt eemaldatud!";
+            return "";
         }
     }
 
@@ -87,7 +84,7 @@ public class Loogika {
         } else {
             andmebaas.lisaKasutaja(kasutajanimi, parool, kontonumber, kontojääk, onAdmin);
             logija.info("Kasutaja " + kasutajanimi + " lisati andmebaasi!");
-            return "Kasutaja lisamine õnnestus";
+            return "";
         }
     }
 
@@ -198,7 +195,8 @@ public class Loogika {
                 andmebaas.sisestaBaasi(saajaQuery);
                 andmebaas.sisestaBaasi(kandjaQuery);
                 logija.info("Kontolt " + kasutaja.getKontoNr() + " tehti ülekanne kontole " + kontoNr + "! Summa: " + summa + ".");
-                return "Ülekanne õnnestus!";
+                // Õnnestus
+                return "";
             } else {
                 return "Sobimatu pangakonto number...";
             } // Sellega kontrollib, kas kontonumber on olemas, erind kui ei ole.
