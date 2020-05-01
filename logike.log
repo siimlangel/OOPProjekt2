@@ -38,3 +38,13 @@ mai 01, 2020 11:37:34 AM application.MainController LogOut
 INFO: Kasutaja KatiAin logis välja.
 mai 01, 2020 11:38:26 AM application.LoginController Login
 INFO: Kasutaja MadisPeterson logis sisse!
+mai 01, 2020 11:48:38 AM application.LoginController Login
+INFO: Kasutaja MadisPeterson logis sisse!
+mai 01, 2020 11:59:08 AM application.LoginController Login
+INFO: Kasutaja MadisPeterson logis sisse!
+mai 01, 2020 11:59:13 AM application.MainController LogOut
+INFO: Kasutaja MadisPeterson logis välja.
+mai 01, 2020 11:59:22 AM application.LoginController Login
+INFO: Kasutaja KatiAin logis sisse!
+mai 01, 2020 11:59:28 AM application.MainController LogOut
+INFO: Kasutaja KatiAin logis välja.

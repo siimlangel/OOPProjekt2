@@ -65,7 +65,7 @@
                                     <Font name="Arial Rounded MT Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblMuutujaTekst" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="480.0" styleClass="lblProfiil" text="Misiganes" GridPane.rowIndex="2">
+                              <Label fx:id="lblMuutujaTekst" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="480.0" styleClass="lblProfiil" text="Staatus" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Arial Rounded MT Bold" size="18.0" />
                                  </font>

@@ -321,10 +321,12 @@ public class MainController implements Initializable {
         kasutaja = andmebaas.looKasutaja(kasutajaNimi);
         txtMainKasutajaNimi.setText(kasutajaNimi);
         lblKontoNumber.setText(kasutaja.getKontoNr());
+        lblMuutuja.setText("Admin");
         lblKontoJääk.setText(Double.toString(kasutaja.getKontojääk()));
 
         // Näitab ainult administraatoritele kasutaja lisamise ja eemaldamise tabi.
         if (kasutaja instanceof Klient) {
+            lblMuutuja.setText("Tavakasutaja");
             tabpaneMain.getTabs().remove(tabLisaKasutaja);
             tabpaneMain.getTabs().remove(tabEemaldaKasutaja);
             tabpaneMain.getTabs().remove(tabLogiandmed);

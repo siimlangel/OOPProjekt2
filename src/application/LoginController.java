@@ -59,9 +59,9 @@ public class LoginController {
     }
 
     public void kontroll() {
-        // Genereerime kaks suvalist täisarvu vahemikus 0-10 ning moodustame liitmistehte loginsteenile. (Jätame nende summa meelde.)
-        int esimene = (int) (Math.random() * (11));
-        int teine = (int) (Math.random() * (11));
+        // Genereerime kaks suvalist täisarvu vahemikus 0-9 ning moodustame liitmistehte loginsteenile. (Jätame nende summa meelde.)
+        int esimene = (int) (Math.random() * (10));
+        int teine = (int) (Math.random() * (10));
         txtTehe.setText(esimene + " + " + teine + " = ");
         summa = String.valueOf(esimene + teine);
     }
