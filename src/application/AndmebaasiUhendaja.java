@@ -52,18 +52,6 @@ public class AndmebaasiUhendaja {
 
 
 
-    // Loeb andmebaasist käskluse peale informatsiooni.
-    public String loeBaasist(String sql, String lahter) throws SQLException {
-        loeAndmeid = st.executeQuery(sql);
-
-        while (loeAndmeid.next()) {
-            System.out.println(loeAndmeid.getString(lahter));
-        }
-
-        return loeAndmeid.getString(lahter);
-
-    }
-
     // Kontrollitakse sisselogimisprotsessi käigus, kas kasutaja poolt sisestatud andmed (st kasutajanimi, parool) vastavad
     // andmetele, mis on leitavad andmebaasist.
     public boolean testLogimine(String sql, String sisend, String lahter) throws SQLException {
@@ -91,6 +79,7 @@ public class AndmebaasiUhendaja {
         sisestaBaasi(query);
     }
 
+    // Eemaldab kasutaja andmebaasist.
     public void eemaldaKasutaja(String kasutajaNimi) throws SQLException {
         String query = String.format("DELETE FROM kontod WHERE kasutajanimi = '%s'", kasutajaNimi);
         sisestaBaasi(query);
@@ -108,17 +97,5 @@ public class AndmebaasiUhendaja {
         }
         return parool;
     }
-
-    // Kui kasutaja lõpetab seansi siis uuendab kõik kasutaja andmed andmebaasis.
-
-
-    public void uuendaAndmed(Kasutaja kasutaja) throws SQLException {
-       String query = String.format("UPDATE kontod SET kasutajanimi = '%s', parool = '%s', kontonumber = '%s'" +
-               ", kontojääk = %s WHERE kasutajanimi = '%s'", kasutaja.getKasutajanimi(), kasutaja.getParool(), kasutaja.getKontoNr(),
-               kasutaja.getKontojääk(), kasutaja.getKasutajanimi());
-        sisestaBaasi(query);
-    }
-
-
 
 }

@@ -15,7 +15,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static application.Logija.logija;
+
 public class Main extends Application {
+
+    // Ühendame andmebaasiga.
+    public static AndmebaasiUhendaja andmebaas = new AndmebaasiUhendaja();
+
     // Teeb sisselogimise stage
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -34,10 +40,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        // Logi kustutamine...
-        // Loogika.kustutaLogi();
-        // Alustab uue logi
-        // Loeb logist
         launch(args);
     }
 }

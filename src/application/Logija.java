@@ -4,6 +4,7 @@ import java.util.logging.*;
 
 class Logija {
 
+    // Loome globaalse logija.
     public final static Logger logija = Logger.getLogger( Logger.GLOBAL_LOGGER_NAME );
 
     static void logijaProtsess() {
@@ -13,7 +14,7 @@ class Logija {
 
         try {
             // Append: true - lisame olemasolevasse logifaili juurde.
-            FileHandler käsitleja = new FileHandler("logi.log", true);
+            FileHandler käsitleja = new FileHandler("logike.log", true);
             käsitleja.setLevel(Level.FINE);
             logija.addHandler(käsitleja);
             // Andmed sobivale kujule väljastamiseks...

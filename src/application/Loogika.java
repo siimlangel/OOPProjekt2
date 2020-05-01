@@ -24,25 +24,14 @@ import java.sql.SQLOutput;
 import java.util.*;
 
 import static application.Logija.logija;
+import static application.Main.andmebaas;
 
 public class Loogika {
-    // Programm ühendatakse andmebaasiga.
-    public static AndmebaasiUhendaja andmebaas = new AndmebaasiUhendaja();
-    static Scanner scanner = new Scanner(System.in);
 
-    // Meetodiga genereeritakse kaks numbrit vahemikus 0-10, ja prinditakse liitmistehe ja tagastatakse
-    // selle liitmistehte vastus sõnena, et mugavalt kontrollida seda kasutaja vastusega.
-    public static String robotiKontroll() {
-        int esimene = (int) (Math.random() * (11));
-        int teine = (int) (Math.random() * (11));
-        System.out.print("Robotikontroll! " + esimene + " + " + teine + " = ");
-        String summa = String.valueOf(esimene + teine);
-        return summa;
-    }
-
+    // Kasutaja andmebaasist eemaldamine
     public static String eemaldaKasutaja(String kasutajanimi) throws SQLException {
         if (!andmebaas.testLogimine("select * from kontod where kasutajanimi = '" + kasutajanimi + "'", kasutajanimi, "kasutajanimi")) {
-            return "Error: Sellise nimega kasutajat pole";
+            return "Sellist kasutajat ei ole!";
         } else {
             andmebaas.eemaldaKasutaja(kasutajanimi);
             logija.info("Kasutaja " + kasutajanimi + " eemaldati andmebaasist!");
@@ -88,62 +77,40 @@ public class Loogika {
         }
     }
 
-    // Teise kasutaja või enda parooli muutmine.
-    private static void muudaParooli(Kasutaja admin) throws SQLException {
-        String vanaParool;
-        String uusParool;
+    // Enda parooli muutmine.
+    static String muudaParooli(Kasutaja kasutaja, String vanaParool, String uusParool, String kordus) throws SQLException {
+
         String kasutajaNimi; // Kasutaja, kelle parooli muudetakse.
 
-        do {
-            System.out.print("Sisestage kasutajanimi, kelle parooli muuta -> ");
-            kasutajaNimi = scanner.next();
-            vanaParool = andmebaas.getParool(kasutajaNimi); // Võtab kasutaja vanaparooli andmebaasist.
+        kasutajaNimi = kasutaja.getKasutajanimi();
 
-            System.out.print("Sisestage uus parool -> ");
-            uusParool = scanner.next();
-            if (uusParool.equals(vanaParool)) {
-                System.out.println("Uus parool ei saa olla sama, mis praegune...");
-                continue;
-            }
-            if (uusParool.length() < 6) {
-                System.out.println("Parool peab olema pikem kui 6 sümbolit...");
-                continue;
-            }
-
-            String query = String.format("UPDATE kontod SET parool = '%s'" +
-                    " WHERE kasutajanimi = '%s'", uusParool, kasutajaNimi);
-
-            // Uuendatakse kasutaja parool andmebaasis, või kui muudetakse enda parooli, siis ajutiselt programmis.
-            try {
-                if (!admin.getKasutajanimi().equals(kasutajaNimi)) {
-                    andmebaas.sisestaBaasi(query);
-                } else { // Kui muudetakse iseenda parooli.
-                    admin.setParool(uusParool);
-                }
-
-            } catch (SQLException e) {
-                System.out.println("Parooli vahetamine ei õnnestunud...");
-                return;
-            }
-
-        } while (uusParool.equals(vanaParool) || uusParool.length() < 6);
-        System.out.println("Parooli vahetamine õnnestus!");
-    }
-
-
-    // Raha välja võtmine.
-    private static void rahaVälja(Kasutaja kasutaja) {
-        System.out.print("Sisesta summa, mida soovid välja võtta, sente ei väljastata: ");
-
-        int summa = scanner.nextInt();
-
-        if (summa <= kasutaja.getKontojääk()) {
-            kasutaja.setKontojääk(kasutaja.getKontojääk() - summa);
-            System.out.println("Palun, siin on teile " + summa + " eurot!");
-        } else {
-            System.out.println("Teie kontol puuduvad piisavad vahendid.");
+        if (!vanaParool.equals(andmebaas.getParool(kasutajaNimi))) {
+            return "Vana parool ei ole õige...";
         }
 
+        if (!uusParool.equals(kordus)) {
+            return "Paroolid ei kattu...";
+        }
+
+        if (uusParool.equals(vanaParool)) {
+            return "Uus parool on sama, mis vana parool...";
+        }
+
+        if (uusParool.length() < 6) {
+            return "Parool peab olema pikem kui 6 sümbolit...";
+        }
+
+        String query = String.format("UPDATE kontod SET parool = '%s'" +
+                " WHERE kasutajanimi = '%s'", uusParool, kasutajaNimi);
+
+        try {
+            andmebaas.sisestaBaasi(query);
+            logija.info("Kasutaja " + kasutajaNimi + " parool vahetati.");
+        } catch (SQLException e) {
+            return "Parooli vahetamine ei õnnestunud...";
+        }
+
+        return "Parooli vahetamine õnnestus!";
     }
 
     /**
@@ -169,6 +136,7 @@ public class Loogika {
         });
         ftr.play();
     }
+
     // Teisele kontole ülekande tegemine.
     public static String ülekanne(Kasutaja kasutaja, String kontoNr, double summa) {
 
@@ -178,6 +146,11 @@ public class Loogika {
 
         if (summa > kasutaja.getKontojääk()) {
             return "Vahendid puuduvad...";
+        }
+
+        // Väldime negatiivseid või paljude komadega arve
+        if (summa <= 0 || !(summa == Math.round((summa) * 100.0) / 100.0)) {
+            return "Sobimatu rahaühik...";
         }
 
         // SQL käsklus, mis uuendab saajakonto rahalist seisu andmebaasis.

@@ -24,11 +24,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import static application.Logija.logija;
+import static application.Main.andmebaas;
 
 
 public class MainController implements Initializable {
     private Kasutaja kasutaja;
-    private AndmebaasiUhendaja andmebaas = new AndmebaasiUhendaja();
 
     @FXML
     private Text txtMainKasutajaNimi;
@@ -106,12 +106,6 @@ public class MainController implements Initializable {
     private Button btnKinnitaEemaldaKasutaja;
 
     @FXML
-    private Button btnKustutaLogi;
-
-    @FXML
-    private Button btnNäitaLogi;
-
-    @FXML
     private Tab tabLogiandmed;
 
     @FXML
@@ -119,6 +113,21 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnKinnitaÜlekanne;
+
+    @FXML
+    private TextField txtVanaParool;
+
+    @FXML
+    private TextField txtUusParool;
+
+    @FXML
+    private TextField txtKinnitaParool;
+
+    @FXML
+    private Text txtErrorMuudaParool;
+
+    @FXML
+    private Button btnMuudaParool;
 
 
     // Et saaks LoginControlleris seda controllerit initalizeda ja sealt kasutaja andmeid saata.
@@ -163,7 +172,7 @@ public class MainController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
                 double laius = (double) uusLaius;
                 // Tekstiribaga sama lai nupp.
-                btnKinnitaEemaldaKasutaja.setPrefWidth(laius);
+                btnKinnitaEemaldaKasutaja.setPrefWidth(laius*0.80);
             }
         });
 
@@ -172,20 +181,36 @@ public class MainController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
                 double laius = (double) uusLaius;
                 // Tekstiribaga sama lai nupp.
-                btnKinnitaLisaKasutaja.setPrefWidth(laius);
+                btnKinnitaLisaKasutaja.setPrefWidth(laius*0.80);
+            }
+        });
+
+        txtVanaParool.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number vanaLaius, Number uusLaius) {
+                double laius = (double) uusLaius;
+                // Tekstiribaga sama lai nupp.
+                btnMuudaParool.setPrefWidth(laius*0.80);
             }
         });
     }
 
     public void NäitaLogi(ActionEvent actionEvent) {
-        File fail = new File("logi.log");
+
+        // Nullin enne logiväljundi ära.
+        textAreaLogi.setText("");
+
+        // Loen logifailist info sisse.
+        File fail = new File("logike.log");
+
         try (BufferedReader lugeja = new BufferedReader(new InputStreamReader(new FileInputStream(fail)))) {
             String rida;
             while ((rida = lugeja.readLine()) != null) {
                 textAreaLogi.appendText(rida + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Viga logi lugemisel...");
+            // Kui ei õnnestu logi lugeda.
+            textAreaLogi.setText("Viga logi lugemisel...");
         }
     }
 
@@ -193,43 +218,58 @@ public class MainController implements Initializable {
         // Kustutab logifaili ära ja loob uue ja alustab logimist.
         try {
             // Sisuliselt kirjutab faili üle.
-            PrintWriter kirjutaja = new PrintWriter("logi.log");
+            PrintWriter kirjutaja = new PrintWriter("logike.log");
             kirjutaja.close();
         } catch (IOException e) {
-            System.out.println("Logi kustutamine ebaõnnestus!");
+            textAreaLogi.setText("Logi kustutamine ebaõnnestus!");
         }
 
         textAreaLogi.setText("");
     }
 
-    // Eeemaldab kasutaja andmebaasist
+    public void MuudaParool(ActionEvent actionEvent) {
+        String vanaParool = txtVanaParool.getText();
+        String uusParool = txtUusParool.getText();
+        String kinnitaParool = txtKinnitaParool.getText();
+        String error = "";
+
+        try {
+            error = Loogika.muudaParooli(kasutaja, vanaParool, uusParool, kinnitaParool);
+        } catch (SQLException e) {
+            error = "Viga andmebaasis parooli muutmisel...";
+        }
+
+        if (error.isEmpty()) {
+            txtErrorMuudaParool.setText("Parool edukalt muudetud!");
+        } else {
+            Loogika.buttonColorChange(btnMuudaParool, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
+            txtErrorMuudaParool.setText(error);
+        }
+
+    }
+
+    // Eemaldab kasutaja andmebaasist
     public void EemaldaKasutaja(ActionEvent actionEvent) {
-        if (!txtKasutajanimiEemaldaKasutaja.getText().strip().isEmpty()) {
+
             String eemaldadaKasutajaNimi = txtKasutajanimiEemaldaKasutaja.getText();
             String error = "";
             try {
                 error = Loogika.eemaldaKasutaja(eemaldadaKasutajaNimi);
             } catch (SQLException e) {
-                error = "Viga andmebaasist kasutaja eemaldamisel";
+                error = "Viga andmebaasist kasutaja eemaldamisel...";
             }
             // Kui error on tühi ehk ühtegi viga ei esinenud
             if (error.isEmpty()) {
-                txtErrorLisaKasutaja.setText("Kasutaja edukalt eemaldatud!");
+                txtErrorEemaldaKasutaja.setText("Kasutaja eemaldamine õnnestus!");
             } else {
                 Loogika.buttonColorChange(btnKinnitaEemaldaKasutaja, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
                 txtErrorEemaldaKasutaja.setText(error);
             }
-        } else {
-            txtErrorEemaldaKasutaja.setText("Tühjad sisendid!");
-            Loogika.buttonColorChange(btnKinnitaEemaldaKasutaja, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
         }
-    }
+
 
     //Lisab Andmebaasi uue kasutaja.
     public void LisaKasutaja(ActionEvent actionEvent) {
-        if (!txtKasutajanimiLisaKasutaja.getText().strip().isEmpty() &&
-                !txtParoolLisaKasutaja.getText().strip().isEmpty() &&
-                !txtKontonumberLisaKasutaja.getText().strip().isEmpty()) {
 
             String kasutajaNimi = txtKasutajanimiLisaKasutaja.getText();
             String parool = txtParoolLisaKasutaja.getText();
@@ -240,43 +280,39 @@ public class MainController implements Initializable {
             try {
                 error = Loogika.lisaKasutaja(kasutajaNimi, parool, kontoNumber, kontoJääk, onAdmin);
             } catch (SQLException e) {
-                error = "Viga andmebaasi kasutaja lisamisel";
+                error = "Viga andmebaasi kasutaja lisamisel!";
                 Loogika.buttonColorChange(btnKinnitaLisaKasutaja, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
             }
             // Kui error on tühi ehk ühtegi viga ei esinenud.
             if (error.isEmpty()) {
-                txtErrorLisaKasutaja.setText("Ülekanne õnnestus!");
+                txtErrorLisaKasutaja.setText("Kasutaja lisatud!");
             } else {
                 txtErrorLisaKasutaja.setText(error);
                 Loogika.buttonColorChange(btnKinnitaLisaKasutaja, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
             }
-        } else {
-            txtErrorLisaKasutaja.setText("Tühjad sisendid!");
-            Loogika.buttonColorChange(btnKinnitaLisaKasutaja, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
-        }
     }
 
     public void Ülekanne(ActionEvent actionEvent) {
-        // Kui antakse tühjad sisendid.
-        if (!txtÜlekanneError.getText().strip().isEmpty() && !txtSumma.getText().strip().isEmpty()) {
+
+        try {
             String kontoNumber = txtÜlekanneKontonumber.getText();
             double summa = Double.parseDouble(txtSumma.getText());
-            System.out.println(kontoNumber);
-            System.out.println(summa);
 
             String error = Loogika.ülekanne(kasutaja, kontoNumber, summa);
 
-            // Kui error on tüühi ehk ühtegi viga ei esinenud
+            // Kui error on tühi ehk ühtegi viga ei esinenud
             if (error.isEmpty()) {
                 txtÜlekanneError.setText("Ülekanne õnnestus!");
+                kasutaja.setKontojääk(Math.round((kasutaja.getKontojääk() - summa) * 100.0) / 100.0);
+                lblKontoJääk.setText(String.valueOf(kasutaja.getKontojääk()));
             } else {
                 Loogika.buttonColorChange(btnKinnitaÜlekanne, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
                 txtÜlekanneError.setText(error);
             }
-        } else {
-            txtÜlekanneError.setText("Tühjad sisendid!");
+            // Püüame kinni, kui sisend pole arvulisel kujul, või on muud moodi sobimatu, või näiteks tühi.
+        } catch (NumberFormatException e) {
             Loogika.buttonColorChange(btnKinnitaÜlekanne, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
-
+            txtÜlekanneError.setText("Sobimatu sisend!");
         }
     }
 
@@ -301,7 +337,7 @@ public class MainController implements Initializable {
         ((Node) actionEvent.getSource()).getScene().getWindow().hide();
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource(String.format("/application/%s", "Login.fxml")));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Sisselogimine");
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         primaryStage.setScene(scene);

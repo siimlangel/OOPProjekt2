@@ -17,20 +17,30 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static application.Logija.logija;
+import static application.Main.andmebaas;
 
 
 public class LoginController {
-    AndmebaasiUhendaja andmebaas = new AndmebaasiUhendaja();
 
     @FXML
     private Label lblStaatus;
 
     @FXML
+    private Text txtTehe;
+
+    @FXML
     private TextField txtKasutajaNimi;
+
+    @FXML
+    private TextField txtSumma;
 
     @FXML
     private TextField txtParool;
@@ -38,6 +48,23 @@ public class LoginController {
     @FXML
     private Button btnLogin;
 
+    static String summa;
+
+
+    @FXML
+    public void initialize() {
+        // Programmi töö alguses Login 'stseenil' kutsume välja kontrollmeetodi, et saaks
+        // 'captcha't korralikult rakendada ja, et see oleks muutuv.
+        kontroll();
+    }
+
+    public void kontroll() {
+        // Genereerime kaks suvalist täisarvu vahemikus 0-10 ning moodustame liitmistehte loginsteenile. (Jätame nende summa meelde.)
+        int esimene = (int) (Math.random() * (11));
+        int teine = (int) (Math.random() * (11));
+        txtTehe.setText(esimene + " + " + teine + " = ");
+        summa = String.valueOf(esimene + teine);
+    }
 
     /**
      * Logib sisse. Kui õnnestub vahetab Main.fxml aknasse.
@@ -50,13 +77,20 @@ public class LoginController {
         // Panen logifaili tööle.
         Logija.logijaProtsess();
 
-        boolean kasutajaNimiÕige = false;
+        boolean kasutajanimiÕige = false;
         boolean paroolÕige = false;
+        boolean summaÕige = false;
+
+        // Kontrollime, kas kasutaja sisestatud summa on tõene.
+        if (txtSumma.getText().equals(summa)) {
+            summaÕige = true;
+        }
+
 
         // Kontrolli kasutajanime andmebaasist
         if (andmebaas.testLogimine("SELECT * FROM kontod WHERE kasutajanimi = '"
         + txtKasutajaNimi.getText() + "'", txtKasutajaNimi.getText(), "kasutajanimi")) {
-            kasutajaNimiÕige = true;
+            kasutajanimiÕige = true;
         }
 
         // Kontrolli parooli andmebaasist
@@ -66,7 +100,7 @@ public class LoginController {
         }
 
         // Kui sisselogimisandmed on õiged
-        if (kasutajaNimiÕige && paroolÕige) {
+        if (kasutajanimiÕige && paroolÕige && summaÕige) {
 
             logija.info("Kasutaja " + txtKasutajaNimi.getText() + " logis sisse!");
 
@@ -91,6 +125,7 @@ public class LoginController {
         } else {
             lblStaatus.setText("Sisselogimine ebaõnnestus!");
             Loogika.buttonColorChange(btnLogin, Color.rgb(255, 0, 0), Color.rgb(86, 168, 255));
+            kontroll();
         }
     }
 

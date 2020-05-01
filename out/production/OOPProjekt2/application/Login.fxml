@@ -36,7 +36,7 @@
                   </Text>
                </children>
                <padding>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="30.0" />
                </padding>
                <HBox.margin>
                   <Insets bottom="20.0" />
@@ -70,6 +70,19 @@
                               <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </PasswordField>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="txtTehe" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="71.2962646484375">
+                                 <font>
+                                    <Font name="Arial Rounded MT Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="txtSumma" alignment="CENTER" prefHeight="26.0" prefWidth="37.0" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
                         <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#Login" prefHeight="52.0" prefWidth="224.0" styleClass="btnAccept" stylesheets="@application.css" text="Logi sisse" textFill="WHITE">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="18.0" />
